@@ -5,8 +5,7 @@ export default `{
             "vc": {
                 "@context": [
                     "https://www.w3.org/2018/credentials/v1",
-                    "https://purl.imsglobal.org/spec/ob/v3p0/context.json",
-                    "https://w3id.org/vc/status-list/2021/v1"
+                    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.2.json"
                 ],
                 "id": "urn:uuid:951b475e-b795-43bc-ba8f-a2d01efd2eb1",
                 "type": [
@@ -39,7 +38,8 @@ export default `{
                     }
                 }
             },
-            "retrievalId": "someId"
+            "retrievalId": "someId",
+            "timeToLive": 60000
         }
     ]
 }`
