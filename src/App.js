@@ -115,7 +115,7 @@ function App() {
       </Typography>
       <Typography>
         Note that you can submit data for more than one credential at a time.
-        Use the retrievalId to select each specific deeplink from all the returned deeplinks.
+        Use the retrievalId to identify each specific deeplink in the returned deeplinks.
       </Typography>
       <Typography>
         The example below might be a bit hard to read because of the verifiable credential - to make it a bit clearer,
@@ -132,11 +132,12 @@ function App() {
       }}>
         <pre >
           {`{
-    "tenantName": "UN_PROTECTED_TEST",
+    "tenantName": "test",
     "data": [
         {
             "vc": {your vc goes here},
-            "retrievalId": "someId"
+            "retrievalId": "someId",
+            "timeToLive": 60000 // milliseconds - optional to override default 
         },
       {
             "vc": {another vc},
