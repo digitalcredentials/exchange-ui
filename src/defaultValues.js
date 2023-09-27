@@ -1,5 +1,5 @@
 export default `{
-    "tenantName": "UN_PROTECTED_TEST",
+    "tenantName": "test",
     "data": [
         {
             "vc": {
