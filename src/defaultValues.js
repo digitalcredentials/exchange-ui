@@ -38,8 +38,8 @@ export default `{
                     }
                 }
             },
-            "retrievalId": "someId",
-            "timeToLive": 60000
+            "linkName": "LaurenLaurelsDegree",
+            "timeToLive": 600000
         }
     ]
 }`
