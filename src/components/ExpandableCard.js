@@ -2,6 +2,7 @@ import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
+import CardActionArea from "@mui/material/CardActionArea";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
@@ -13,11 +14,12 @@ export default function ExpandableCard({children, title}) {
   return (
     <>
       <Card sx={{ minWidth: 300, border: "1px solid rgba(211,211,211,0.6)" }}>
+        <CardActionArea onClick={() => setOpen(!open)} >
         <CardHeader
           title={title}
           action={
             <IconButton
-              onClick={() => setOpen(!open)}
+              
               aria-label="expand"
               size="small"
             >
@@ -26,6 +28,7 @@ export default function ExpandableCard({children, title}) {
           }
         >
         </CardHeader>
+        </CardActionArea>
         <div style={{ backgroundColor: 'rgba(211,211,211,0.4)'}}>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <CardContent>

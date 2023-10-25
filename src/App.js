@@ -3,24 +3,14 @@ import './App.css';
 import { useState, useRef, useEffect } from 'react'
 
 import Typography from '@mui/material/Typography'
-import ExpandableCard from './ExpandableCard.js';
-import VCForm from './VCForm';
-import VCBuilderForm from './VCBuilderForm';
+import ExpandableCard from './components/ExpandableCard.js';
+import { Paper, Box } from '@mui/material'; 
+import VCForm from './components/VCForm';
+import VCBuilderForm from './components/VCBuilderForm';
+import DeepLinkResults from './components/DeepLinkResults';
+import { AlignHorizontalLeft } from '@mui/icons-material';
 
-const deepLinkStyle = {
-  bgcolor: (theme) =>
-    theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
-  color: (theme) =>
-    theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-  border: '1px solid',
-  borderColor: (theme) =>
-    theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-  borderRadius: 2,
-  p: 2,
-  m: 3,
-  fontSize: '0.7rem',
-  fontWeight: '100'
-}
+
 
 function App() {
   const [result, setResult] = useState();
@@ -36,43 +26,47 @@ function App() {
   }, [result]);
 
   return (
-    <div className="App">
+    <div >
       <header className="App-header">
         <p>
           Credential Collector
         </p>
       </header>
-
+      <Paper
+        style={{
+          display: "grid",
+          gridRowGap: "20px",
+          padding: "20px",
+          margin: "10px 50px",
+        }}
+      >
       <Typography gutterBottom sx={{ p: 2 }}>
-        Temporarily stores credentials for collection from a wallet.
+        Temporarily stores credentials for collection from a wallet. To use:
       </Typography>
 
-      <Typography gutterBottom sx={{ p: 2 }}>
-        1. Submit preconstructed, but unsigned, verifiable credentials.
+      <Typography gutterBottom >
+        1. Submit preconstructed unsigned verifiable credentials, or use the form to generate an unsigned verifiable credential.
       </Typography>
 
-      <Typography gutterBottom sx={{ p: 2 }}>
-        2. This service stores the credentials temporarily and gives you an http link for each credential that can be used to add the credential to a wallet.
+      <Typography gutterBottom >
+        2. This service stores the credentials temporarily and gives you an http link for each credential. The link can be used to add the credential to a wallet.
       </Typography>
 
-      <Typography gutterBottom sx={{ p: 2 }}>
+      <Typography gutterBottom >
         3. Email or otherwise give the link to the recipient.
       </Typography>
 
-      <Typography gutterBottom sx={{ p: 2 }}>
+      <Typography gutterBottom >
         4. When the recipient clicks the link, the wallet opens and requests the credential from this service.
       </Typography>
 
-      <Typography gutterBottom sx={{ p: 2 }}>
+      <Typography gutterBottom >
         5. The wallet provides the recipient's DID, which we add to the credential before signing and returning the credential.
       </Typography>
+    
 
-      <Typography gutterBottom sx={{ p: 2 }}>
-        You also have the option of using the form below to have the system build a verifiable credential for you from data you provide in the form.
-      </Typography>
-
-      <Typography gutterBottom sx={{ p: 2 }}>
-        You may specify how long the service should keep the deep link active. By default it is kept for 10 minutes. No data is kept beyond the life of the link.
+      <Typography gutterBottom sx={{ p: 1 }}>
+        You may specify how long the service should keep the deep links active. By default they are kept for 10 minutes. No data is kept beyond the life of the link.
       </Typography>
 
       <ExpandableCard title="Submit your own preconstructed Verifiable Credentials">
@@ -83,19 +77,11 @@ function App() {
         <VCBuilderForm setResult={setResult} />
       </ExpandableCard>
 
-      {result ? <div>
-
-        <Typography variant="h5" gutterBottom sx={{ m: 5 }}>
-          Here are your deep links. You can email or otherwise distribute them to recipients. Each link is identified by the linkName you provided when submitting the credentials.
-        </Typography>
-
-        {result.map(link => (<p><Typography> {link.linkName}:</Typography> <Typography sx={deepLinkStyle}> {link.directDeepLink}</Typography></p>))}
-      </div>
-        : ""
-      }
+     <DeepLinkResults result={result}/>
 
       <div ref={messagesEndRef} />
-
+     
+      </Paper>
     </div>
   );
 }

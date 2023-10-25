@@ -1,5 +1,4 @@
 export default async function postData(url = "", data = {}) {
-
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
@@ -10,7 +9,7 @@ export default async function postData(url = "", data = {}) {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: data
+      body: JSON.stringify(data)
     });
     return response.json();
   }
