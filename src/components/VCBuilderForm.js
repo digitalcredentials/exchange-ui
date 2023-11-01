@@ -55,15 +55,8 @@ const options = [
 export default function VCForm({ setResult }) {
 
     const onSubmit = data => {
-        console.log("Submitted data:")
-        console.log(data);
         const vc = buildVC(data)
-        console.log("the vc: ")
-        console.log(vc)
-        // NEXT: construct the VC here, before submitting
         postData(`${exchangeHost}/exchange/setup`, vc).then((response) => {
-            console.log("Server Response:");
-            console.log(response);
             setResult(response)
         });
     }
@@ -94,7 +87,6 @@ export default function VCForm({ setResult }) {
                 <TextFieldElement name="issuerImage" label="Issuer Image URL" helperText="A URL that returns the image. " />
                 <TextFieldElement name="issuerURL" label="Issuer URL" required />
 
-
                 <Divider><Chip label="Recipient" /></Divider>
 
                 <TextFieldElement name="recipientName" label="Credential Recipient Name" />
@@ -118,7 +110,7 @@ export default function VCForm({ setResult }) {
 
                 <Divider><Chip label="Link" /></Divider>
 
-                <SelectElement name="timeToLive" label="Link availability" options={options} sx={{ minWidth: "150px" }} helperText="How long to keep the link available." />
+                <SelectElement name="timeToLive" label="Link life" options={options} sx={{ minWidth: "150px" }} helperText="How long to keep the link available." />
                 <br />
                 <Button type="submit" label="Submit" variant="outlined" sx={{ m: 6 }}>Generate DeepLink</Button>
             </Paper>
