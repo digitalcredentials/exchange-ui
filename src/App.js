@@ -4,11 +4,10 @@ import { useState, useRef, useEffect } from 'react'
 
 import Typography from '@mui/material/Typography'
 import ExpandableCard from './components/ExpandableCard.js';
-import { Paper, Box } from '@mui/material'; 
+import { Paper } from '@mui/material'; 
 import VCForm from './components/VCForm';
 import VCBuilderForm from './components/VCBuilderForm';
 import DeepLinkResults from './components/DeepLinkResults';
-import { AlignHorizontalLeft } from '@mui/icons-material';
 
 
 

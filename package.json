@@ -18,6 +18,7 @@
     "react-hook-form": "^7.46.1",
     "react-hook-form-mui": "^6.5.2",
     "react-scripts": "5.0.1",
+    "vanilla-jsoneditor": "^0.18.10",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

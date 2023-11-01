@@ -1,4 +1,4 @@
-export default `{
+export default {
     "tenantName": "test",
     "data": [
         {
@@ -84,4 +84,4 @@ export default `{
             "timeToLive": 600000
         }
     ]
-}`
+}

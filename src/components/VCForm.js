@@ -1,10 +1,12 @@
-import { FormContainer, TextareaAutosizeElement, SelectElement } from 'react-hook-form-mui'
+import { FormContainer, TextareaAutosizeElement } from 'react-hook-form-mui'
 import Button from '@mui/material/Button'
+import {useState, useCallback} from 'react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import defaultValues from '../templates/defaultValues.js'
 import postData from '../utilities/postData.js';
+import JSONInput from './JSONInput.js';
 
 const exchangeHost = process.env.REACT_APP_PUBLIC_EXCHANGE_HOST
 
@@ -54,26 +56,31 @@ const options = [
     }
 ]
 
-
+const initialContent = {
+    hello: 'world',
+    count: 1,
+    foo: ['bar', 'car']
+  }
 
 
 export default function VCForm({ setResult }) {
 
-    const onSubmit = data => {
-        // parse the data here to make sure it at least parses. 
-        // TODO check the data maybe with JSON Schema.
-        const parsedData = JSON.parse(data.cred_data)
-        postData(`${exchangeHost}/exchange/setup`, parsedData).then((response) => {
+    const [jsonContent, setJsonContent] = useState({ json: defaultValues })
+  const handler = useCallback(
+    (content, previousContent, status) => {
+      setJsonContent(content)
+    },
+    [jsonContent]
+  )
+
+    const handleSubmit = () => {
+        postData(`${exchangeHost}/exchange/setup`, jsonContent.json).then((response) => {
             setResult(response)
         });
     }
 
     return (
-        <FormContainer
-            defaultValues={{ cred_data: defaultValues }}
-            onSuccess={onSubmit}
-        >
-
+        
             <Paper
                 style={{
                     display: "grid",
@@ -127,12 +134,24 @@ export default function VCForm({ setResult }) {
                     Add your data in the field below (we've prepopulated it with a working example that you can change as you like):
                 </Typography>
                 
+                <JSONInput content={jsonContent} onChange={handler} />
 
-                <TextareaAutosizeElement sx={textAreaStyle} name="cred_data" label="Credential Data" rows={5} required />
-
+               
                 <br />
-                <Button type="submit" label="Submit" variant="outlined" sx={{ m: 6 }}>Generate DeepLinks</Button>
+                <Button onClick={handleSubmit} label="Submit" variant="outlined" sx={{ m: 6 }}>Generate DeepLinks</Button>
             </Paper>
-        </FormContainer>
+     
     )
 }
+
+/*
+
+<FormContainer
+            defaultValues={{ cred_data: defaultValues }}
+            onSuccess={onSubmit}
+        >
+
+ <TextareaAutosizeElement sx={textAreaStyle} name="cred_data" label="Credential Data" rows={5} required />
+
+   </FormContainer>
+ */
