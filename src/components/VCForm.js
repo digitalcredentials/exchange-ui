@@ -74,7 +74,8 @@ export default function VCForm({ setResult }) {
   )
 
     const handleSubmit = () => {
-        postData(`${exchangeHost}/exchange/setup`, jsonContent.json).then((response) => {
+        const jsonToPost = jsonContent.json ? jsonContent.json : JSON.parse(jsonContent.text)
+        postData(`${exchangeHost}/exchange/setup`, jsonToPost).then((response) => {
             setResult(response)
         });
     }
