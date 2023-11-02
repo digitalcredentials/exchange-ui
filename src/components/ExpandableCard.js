@@ -4,7 +4,6 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -17,15 +16,7 @@ export default function ExpandableCard({children, title}) {
         <CardActionArea onClick={() => setOpen(!open)} >
         <CardHeader
           title={title}
-          action={
-            <IconButton
-              
-              aria-label="expand"
-              size="small"
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          }
+          action={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         >
         </CardHeader>
         </CardActionArea>
