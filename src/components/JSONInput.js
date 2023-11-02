@@ -1,90 +1,51 @@
 import { useEffect, useRef } from 'react'
-import { JSONEditor, createAjvValidator } from 'vanilla-jsoneditor'
+import { JSONEditor } from 'vanilla-jsoneditor'
+import createAjvValidator from '../utilities/createAjvValidator.js'
+import submissionSchema from '../schemas/submission.js'
+import { parse, stringify } from 'lossless-json'
 
+const parser = { parse, stringify }
 
-const schema = {
-  title: 'Employee',
-  description: 'Object containing employee details',
+const testSchema = {
+  title: 'Credentials',
+  description: 'Object containing credentials for collection.',
   type: 'object',
+  required: ['tenantName'],
   properties: {
-    firstName: {
-      title: 'First Name',
-      description: 'The given name.',
-      examples: ['John'],
+    tenantName: {
+      title: 'Tenant',
+      description: 'The tenant with which to sign.',
       type: 'string'
-    },
-    lastName: {
-      title: 'Last Name',
-      description: 'The family name.',
-      examples: ['Smith'],
-      type: 'string'
-    },
-    gender: {
-      title: 'Gender',
-      enum: ['male', 'female']
-    },
-    availableToHire: {
-      type: 'boolean',
-      default: false
-    },
-    age: {
-      description: 'Age in years',
-      type: 'integer',
-      minimum: 0,
-      examples: [28, 32]
-    },
-    job: {
-      $ref: 'job'
-    }
-  },
-  required: ['firstName', 'lastName']
-}
-
-const schemaDefinitions = {
-  job: {
-    title: 'Job description',
-    type: 'object',
-    required: ['address'],
-    properties: {
-      company: {
-        type: 'string',
-        examples: ['ACME', 'Dexter Industries']
-      },
-      role: {
-        description: 'Job title.',
-        type: 'string',
-        examples: ['Human Resources Coordinator', 'Software Developer'],
-        default: 'Software Developer'
-      },
-      address: {
-        type: 'string'
-      },
-      salary: {
-        type: 'number',
-        minimum: 120,
-        examples: [100, 110, 120]
-      }
     }
   }
 }
-//const validator = createAjvValidator({ schema, schemaDefinitions })
+
 
 const JSONInput = (props) => {
   const refContainer = useRef(null)
   const refEditor = useRef(null)
 
   useEffect(() => {
+
+     const addValidator = async () => {
+      const validator = await createAjvValidator(submissionSchema)
+      refEditor.current.updateProps({validator})
+    } 
+    
     refEditor.current = new JSONEditor({
       target: refContainer.current,
+      
       props: {
-      //  validator,
+        parser,
         mode: 'text',
         onRenderMenu: (items, context) => {
           return items.filter(item=>item.text!=='table' && !['jse-transform', 'jse-sort'].includes(item.className))
         }
       }
     })
-    
+
+    addValidator()
+
     return () => {
       if (refEditor.current) {
         refEditor.current.destroy()

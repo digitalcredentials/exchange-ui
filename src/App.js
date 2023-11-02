@@ -40,34 +40,10 @@ function App() {
         }}
       >
       <Typography gutterBottom sx={{ p: 2 }}>
-        Temporarily stores credentials for collection from a wallet. To use:
+        Temporarily stores credentials for collection from a wallet. To use, either:
       </Typography>
 
-      <Typography gutterBottom >
-        1. Submit preconstructed unsigned verifiable credentials, or use the form to generate an unsigned verifiable credential.
-      </Typography>
-
-      <Typography gutterBottom >
-        2. This service stores the credentials temporarily and gives you an http link for each credential. The link can be used to add the credential to a wallet.
-      </Typography>
-
-      <Typography gutterBottom >
-        3. Email or otherwise give the link to the recipient.
-      </Typography>
-
-      <Typography gutterBottom >
-        4. When the recipient clicks the link, the wallet opens and requests the credential from this service.
-      </Typography>
-
-      <Typography gutterBottom >
-        5. The wallet provides the recipient's DID, which we add to the credential before signing and returning the credential.
-      </Typography>
-    
-
-      <Typography gutterBottom sx={{ p: 1 }}>
-        You may specify how long the service should keep the deep links active. By default they are kept for 10 minutes. No data is kept beyond the life of the link.
-      </Typography>
-
+     
       <ExpandableCard title="Submit your own preconstructed Verifiable Credentials">
         <VCForm setResult={setResult} />
       </ExpandableCard>
@@ -77,6 +53,18 @@ function App() {
       </ExpandableCard>
 
      <DeepLinkResults result={result}/>
+
+      <Typography gutterBottom >
+        This service stores the credentials temporarily and gives you an http link for each credential. 
+      </Typography>
+
+      <Typography gutterBottom >
+        Email or otherwise give the link to the recipient. When clicked, the link will open the wallet and add the credential.
+      </Typography>  
+
+      <Typography gutterBottom>
+        You may specify how long the service should keep the deep links active. By default they are kept for 10 minutes. No data is kept beyond the life of the link.
+      </Typography>
 
       <div ref={messagesEndRef} />
      
