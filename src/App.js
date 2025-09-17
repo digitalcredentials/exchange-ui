@@ -28,7 +28,7 @@ function App() {
     <div >
       <header className="App-header">
         <p>
-          Credential Collector
+          Exchange UI : Credential Collector
         </p>
       </header>
       <Paper
